@@ -6,6 +6,9 @@ This project allows you to create translation databases and pronounce English wo
 Libraries used in the project :
 
 pyttsx3 --> pip install pyttsx3
+
 translate --> pip install translate
+
 pyperclip --> pip install pyperclip
+
 gtts --> pip install gTTS
