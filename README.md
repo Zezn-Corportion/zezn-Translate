@@ -12,3 +12,5 @@ translate --> pip install translate
 pyperclip --> pip install pyperclip
 
 gtts --> pip install gTTS
+
+and tkinter
