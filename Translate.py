@@ -4,6 +4,7 @@ from tkinter import ttk
 from tkinter import filedialog
 from tkinter import messagebox
 import os 
+import webbrowser
 
 Theme_color = "#4169e1"
 Font_color = "#ffffff"
@@ -66,7 +67,7 @@ try :
         trans_error = 1
 
     try :
-        from pyperclip import copy
+        from pyperclip import copy , paste
         pyperclip_error = 0
     except :
         pyperclip_error = 1
@@ -338,7 +339,7 @@ try :
     app.config(background= Theme_color)
     app.resizable(False,False)
    
-    chose_language = Label(text = "english")
+    
     
     def about() :
         if 'Arabic' in userlang : 
@@ -346,11 +347,15 @@ try :
         else :
             messa1 = messagebox.showinfo("About" , "This program was developed by zezn Software by the developer Ziad Al-Hamwi")
 
+    def gitcode() :
+        webbrowser.open("https://github.com/Zezn-Corportion/zezn-Translate")
+
     window = Frame(app, bg="#d4d4d4" , width=380 , height=548)
     window.place(x = 0 , y = 60)
 
     arlangs = ['الغة العربية' , 'الغة الروسية' , 'الغة الكندية' , 'الغة الفرنسية']
     enlangs = ['Arabic language' , 'French language' , 'Russian language' , 'Canadian language']
+
     if 'Arabic' in userlang :
         miclabel1 = Label(bg = "#d4d4d4", text = ": الى لغة")
         miccompo = ttk.Combobox(width = 40 , values=arlangs)
@@ -377,6 +382,9 @@ try :
         miclabel1.place(x = 1000 , y = 1000)
         miccompo.place(x = 1000 , y = 1000)
     
+    chose_language = Label(text = "microsoft")
+    chose_lang_microsoftapi()
+
     if 'Arabic' in userlang :
         menubar = Menu(app)
         DataBaseMenu = Menu(menubar , tearoff=0)
@@ -431,6 +439,9 @@ try :
 
     Ent = ttk.Entry(widows_input, width = 40)
     Ent.place(x = 44 , y = 60)
+
+    def pasteonentry() :
+        Ent.insert(INSERT , paste())
 
     def read() :
         if pyttsx_error == 0 :
@@ -562,6 +573,8 @@ try :
     if 'Arabic' in userlang :
         copbtn = ttk.Button(widows_outpot,text = "نسخ الترجمة",command=copytranslate)
         copbtn.place(x = 244 , y = 100)
+        pasbtn = ttk.Button(widows_input,text = "لصق نص",command=pasteonentry)
+        pasbtn.place(x = 244 , y = 100)
         trs = Button(command = trans , width = 12 , height = 1 , text = "ترجمة الكلمة" , font=('Tahoma',12) , fg = Font_color , bg = "grey")
         btn_view_out = Button(text = "عرض  ترجمة الكلمة في مكان خارجي" , width = "35", font=('Tahoma',12) , fg = Font_color , bg = "grey" , command=view_trans_out)
         cle = Button(command = clear , width = 11 , height = 1 , text = "clear" , font=('Tahoma',12) , fg = Font_color , bg = "grey").place(x = 227+13 , y = 440 + 15)
@@ -573,6 +586,8 @@ try :
 
     else:
         copbtn = ttk.Button(widows_outpot,text = "copy",command=copytranslate)
+        copbtn.place(x = 27 , y = 100)
+        pasbtn = ttk.Button(widows_input,text = "Paste",command=pasteonentry)
         copbtn.place(x = 27 , y = 100)
         trs = Button(command = trans , width = 12 , height = 1 , text = "Translate" , font=('Tahoma',12) , fg = Font_color , bg = "grey")
         btn_view_out = Button(text = "View word translation in an outdoor location" , width = "35", font=('Tahoma',12) , fg = Font_color , bg = "grey" , command=view_trans_out)
@@ -616,6 +631,7 @@ try :
                 menubar.entryconfigure(3,label = 'عن المطور')
                 aboutMenu.entryconfigure(0,label = 'عن المطور')
                 aboutMenu.entryconfigure(1,label = 'لغة البرنامج')
+                aboutMenu.entryconfigure(2,label = 'الحصول على السورس كود')
                 readbutton.config(text = 'نطق')
                 trs.config(text = 'ترجمة الكلمة')
                 btn_view_out.config(text = 'عرض الترجمة في مكان خارجي')
@@ -629,6 +645,8 @@ try :
                     miclabel1.place(x = 310 , y = 75)
                     miccompo.place(x = 23 , y = 75)
                 miccompo.config(values=arlangs)
+                pasbtn.config(text = "Paste")
+                pasbtn.place(x = 244 , y = 100)
                 copbtn.place(x = 244 , y = 100)
                 copbtn.config(text = "نسخ الترجمة")
 
@@ -642,6 +660,7 @@ try :
                 menubar.entryconfigure(3,label = 'About')
                 aboutMenu.entryconfigure(0,label = 'About the developer')
                 aboutMenu.entryconfigure(1,label = 'App Language')
+                aboutMenu.entryconfigure(2,label = 'Get Source Code')
                 readbutton.config(text = 'say')
                 trs.config(text = 'Translate')
                 btn_view_out.config(text = 'View word translation in an outdoor location')
@@ -657,6 +676,8 @@ try :
                 miccompo.config(values=enlangs)
                 copbtn.place(x = 27 , y = 100)
                 copbtn.config(text = "copy")
+                pasbtn.config(text = "Paste")
+                pasbtn.place(x = 27 , y = 100)
             langc.destroy()
 
         langcbtn1 = ttk.Button(langc,text = 'OK',command = langbtn1c).place(x = 60 , y = 90)
@@ -665,8 +686,11 @@ try :
     
     if 'Arabic' in userlang :
         aboutMenu.add_command(label = 'لغة البرنامج' , command = languagec)
+        aboutMenu.add_command(label = 'الحصول على السورس كود' , command = gitcode )
     else :
         aboutMenu.add_command(label = 'App Language' , command = languagec)
+        aboutMenu.add_command(label = 'Get Source Code' , command = gitcode )
+
     app.mainloop()
 
 except: 
